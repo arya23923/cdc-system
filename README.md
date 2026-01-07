@@ -32,7 +32,7 @@ A production-ready, database-agnostic Change Data Capture system that captures a
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/cdc-system.git
+git clone https://github.com/arya23923/cdc-system.git
 cd cdc-system
 
 # Or download the files directly and organize them as:
