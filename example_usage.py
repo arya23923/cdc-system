@@ -43,7 +43,7 @@ def setup_demo_tables(db):
 
 def insert_sample_data(db, count=5):
     """Insert sample data into source table"""
-    print(f"\n📝 Inserting {count} sample records...")
+    print(f"\n Inserting {count} sample records...")
     
     for i in range(count):
         username = f"user_{random.randint(1000, 9999)}"
@@ -60,7 +60,7 @@ def insert_sample_data(db, count=5):
 
 def update_sample_data(db, count=3):
     """Update some existing records"""
-    print(f"\n✏️  Updating {count} records...")
+    print(f"\n  Updating {count} records...")
     
     db.execute('SELECT id FROM users LIMIT ?', (count,))
     rows = db.fetchall()
@@ -79,7 +79,7 @@ def update_sample_data(db, count=3):
 
 def delete_sample_data(db, count=2):
     """Delete some records"""
-    print(f"\n🗑️  Deleting {count} records...")
+    print(f"\n  Deleting {count} records...")
     
     db.execute('SELECT id FROM users LIMIT ?', (count,))
     rows = db.fetchall()
@@ -93,7 +93,7 @@ def delete_sample_data(db, count=2):
 
 def verify_replication(source_db, target_db):
     """Verify data consistency between source and target"""
-    print("\n🔍 Verifying replication...")
+    print("\n Verifying replication...")
     
     # Count records
     source_db.execute('SELECT COUNT(*) as count FROM users')
@@ -126,7 +126,7 @@ def run_basic_demo():
     setup_demo_tables(target_db)
     
     # Initialize CDC system
-    print("\n🔧 Initializing CDC system...")
+    print("\n Initializing CDC system...")
     cdc = CDCSystem(source_db, "users")
     cdc.setup_trigger_based_cdc(['id', 'username', 'email', 'status', 'created_at'])
     print("✓ CDC system initialized")
@@ -143,11 +143,11 @@ def run_basic_demo():
     delete_sample_data(source_db, count=2)
     
     # Show CDC statistics
-    print("\n📊 CDC Statistics:")
+    print("\nCDC Statistics:")
     monitor.print_report()
     
     # Replicate changes
-    print("\n🔄 Starting replication...")
+    print("\n Starting replication...")
     replicated = replicator.replicate_changes(batch_size=50)
     print(f"✓ Replicated {replicated} changes")
     
@@ -155,14 +155,14 @@ def run_basic_demo():
     verify_replication(source_db, target_db)
     
     # Show updated statistics
-    print("\n📊 Updated CDC Statistics:")
+    print("\n Updated CDC Statistics:")
     monitor.print_report()
     
     # Cleanup
     source_db.close()
     target_db.close()
     
-    print("\n✅ Demo completed successfully!")
+    print("\n Demo completed successfully!")
 
 
 def run_continuous_sync_demo(duration_seconds=30):
@@ -192,7 +192,7 @@ def run_continuous_sync_demo(duration_seconds=30):
     sync_interval = 5  # Sync every 5 seconds
     last_sync = start_time
     
-    print("\n🚀 Starting continuous sync...")
+    print("\n Starting continuous sync...")
     print("(Performing random operations and syncing periodically)\n")
     
     while time.time() - start_time < duration_seconds:
@@ -212,25 +212,25 @@ def run_continuous_sync_demo(duration_seconds=30):
         if current_time - last_sync >= sync_interval:
             replicated = replicator.replicate_changes(batch_size=10)
             if replicated > 0:
-                print(f"⏱️  [{int(current_time - start_time)}s] Synced {replicated} changes")
+                print(f"  [{int(current_time - start_time)}s] Synced {replicated} changes")
             last_sync = current_time
         
         time.sleep(1)
     
     # Final sync
-    print("\n🔄 Performing final sync...")
+    print("\n Performing final sync...")
     final_count = replicator.replicate_changes(batch_size=100)
     print(f"✓ Final sync: {final_count} changes")
     
     # Final report
-    print("\n📊 Final Report:")
+    print("\n Final Report:")
     monitor.print_report()
     verify_replication(source_db, target_db)
     
     source_db.close()
     target_db.close()
     
-    print("\n✅ Continuous sync demo completed!")
+    print("\n Continuous sync demo completed!")
 
 
 def run_conflict_resolution_demo():
@@ -244,7 +244,7 @@ def run_conflict_resolution_demo():
     # - Last-write-wins strategy
     # - Custom conflict resolution
     
-    print("\n💡 Conflict resolution strategies:")
+    print("\n Conflict resolution strategies:")
     print("1. Last Write Wins - Most recent change takes precedence")
     print("2. First Write Wins - Original change is preserved")
     print("3. Manual Resolution - Flag conflicts for human review")
