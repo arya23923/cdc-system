@@ -8,7 +8,6 @@ A production-ready, database-agnostic Change Data Capture system that captures a
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Architecture](#architecture)
-- [Troubleshooting](#troubleshooting)
 
 ##  Features
 
@@ -86,7 +85,7 @@ This will:
 5. Show statistics and verify replication
 
 
-## CDC Architecture
+##  Architecture
 
 ```text
 ┌─────────────────┐
